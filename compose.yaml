@@ -1,0 +1,47 @@
+
+
+services:
+  db:
+    image: postgres:17
+    container_name: weather-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: weather_user
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: weather_db
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U weather_user -d weather_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    profiles: ["manual"]
+    environment:
+      DB_HOST: db
+      DB_PASSWORD: ${DB_PASSWORD}
+    depends_on:
+      db:
+        condition: service_healthy
+
+  scheduler:
+    build: .
+    restart: unless-stopped
+    environment:
+      DB_HOST: db
+      DB_PASSWORD: ${DB_PASSWORD}
+    depends_on:
+      db:
+        condition: service_healthy
+    command:
+      - /bin/sh
+      - -c
+      - "while true; do python -u main.py; sleep 3600; done"
+
+volumes:
+  postgres_data:
