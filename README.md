@@ -32,15 +32,17 @@ A containerized ETL pipeline built with Python, PostgreSQL, and Docker. The appl
 
 
 
+
+
 ```mermaid
 
 flowchart TD
 
-&#x20;   A\[Open-Meteo API] --> B\[Python ETL]
+&#x20;   A\["Open-Meteo API"] --> B\["Python ETL"]
 
-&#x20;   B --> C\[(PostgreSQL)]
+&#x20;   D\["Docker Scheduler"] --> B
 
-&#x20;   D\[Docker Scheduler] --> B
+&#x20;   B --> C\[("PostgreSQL")]
 
 ```
 
