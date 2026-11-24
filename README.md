@@ -1,6 +1,6 @@
 
 
-\# Automated Weather Data Pipeline
+# Automated Weather Data Pipeline
 
 
 
@@ -8,27 +8,27 @@ A containerized ETL pipeline built with Python, PostgreSQL, and Docker. The appl
 
 
 
-\## Tech Stack
+## Tech Stack
 
 
 
-\- Python 3.14
+- Python 3.14
 
-\- PostgreSQL 17
+- PostgreSQL 17
 
-\- Docker \& Docker Compose
+- Docker & Docker Compose
 
-\- SQL
+- SQL
 
-\- Git \& GitHub
+- Git & GitHub
 
-\- Open-Meteo API
+- Open-Meteo API
 
-\- Psycopg 3
+- Psycopg 3
 
 
 
-\## Architecture
+## Architecture
 
 
 
@@ -38,37 +38,37 @@ A containerized ETL pipeline built with Python, PostgreSQL, and Docker. The appl
 
 flowchart TD
 
-&#x20;   A\["Open-Meteo API"] --> B\["Python ETL"]
+    A["Open-Meteo API"] --> B["Python ETL"]
 
-&#x20;   D\["Docker Scheduler"] --> B
+    D["Docker Scheduler"] --> B
 
-&#x20;   B --> C\[("PostgreSQL")]
+    B --> C[("PostgreSQL")]
 
 ```
 
 
 
-\## Features
+## Features
 
 
 
-\- Retrieve real weather data from an external API
+- Retrieve real weather data from an external API
 
-\- Extract and transform JSON data
+- Extract and transform JSON data
 
-\- Store structured data in PostgreSQL
+- Store structured data in PostgreSQL
 
-\- Prevent duplicate records using SQL constraints
+- Prevent duplicate records using SQL constraints
 
-\- Run the application in Docker containers
+- Run the application in Docker containers
 
-\- Execute the pipeline automatically approximately every hour
+- Execute the pipeline automatically approximately every hour
 
-\- Inspect pipeline logs
+- Inspect pipeline logs
 
 
 
-\## Project Structure
+## Project Structure
 
 
 
@@ -98,11 +98,11 @@ weather-data-pipeline/
 
 
 
-\## Getting Started
+## Getting Started
 
 
 
-\### 1. Clone the repository
+### 1. Clone the repository
 
 
 
@@ -116,7 +116,7 @@ cd weather-data-pipeline
 
 
 
-\### 2. Configure environment variables
+### 2. Configure environment variables
 
 
 
@@ -124,7 +124,7 @@ Copy `.env.example` to `.env` and configure your local database password.
 
 
 
-\### 3. Start PostgreSQL
+### 3. Start PostgreSQL
 
 
 
@@ -136,19 +136,19 @@ docker compose up -d --wait db
 
 
 
-\### 4. Create the database table
+### 4. Create the database table
 
 
 
 ```bash
 
-docker compose exec -T db psql -U weather\_user -d weather\_db -v ON\_ERROR\_STOP=1 < init.sql
+Get-Content .\init.sql | docker compose exec -T db psql -U weather_user -d weather_db -v ON_ERROR_STOP=1
 
 ```
 
 
 
-\### 5. Run the ETL pipeline manually
+### 5. Run the ETL pipeline manually
 
 
 
@@ -162,7 +162,7 @@ docker compose run --rm app
 
 
 
-\### 6. Start automated execution
+### 6. Start automated execution
 
 
 
@@ -174,7 +174,7 @@ docker compose up -d --build scheduler
 
 
 
-\### 7. Check pipeline logs
+### 7. Check pipeline logs
 
 
 
@@ -186,11 +186,11 @@ docker compose logs --tail=30 scheduler
 
 
 
-\## Database Schema
+## Database Schema
 
 
 
-The `weather\_measurements` table contains:
+The `weather_measurements` table contains:
 
 
 
@@ -202,25 +202,25 @@ The `weather\_measurements` table contains:
 
 | city | City name |
 
-| observed\_at | Weather observation timestamp |
+| observed_at | Weather observation timestamp |
 
-| temperature\_c | Temperature in Celsius |
+| temperature_c | Temperature in Celsius |
 
-| humidity\_percent | Relative humidity percentage |
+| humidity_percent | Relative humidity percentage |
 
 
 
-\## Example SQL Query
+## Example SQL Query
 
 
 
 ```sql
 
-SELECT city, observed\_at, temperature\_c
+SELECT city, observed_at, temperature_c
 
-FROM weather\_measurements
+FROM weather_measurements
 
-ORDER BY observed\_at DESC
+ORDER BY observed_at DESC
 
 LIMIT 10;
 
@@ -228,23 +228,23 @@ LIMIT 10;
 
 
 
-\## Future Improvements
+## Future Improvements
 
 
 
-\- Add automated tests
+- Add automated tests
 
-\- Improve error handling and logging
+- Improve error handling and logging
 
-\- Support multiple cities
+- Support multiple cities
 
-\- Add monitoring and alerts
+- Add monitoring and alerts
 
-\- Deploy the pipeline to a cloud environment
+- Deploy the pipeline to a cloud environment
 
 
 
-\## Learning Outcomes
+## Learning Outcomes
 
 
 
