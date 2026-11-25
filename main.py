@@ -4,6 +4,8 @@ import os
 from datetime import datetime, timezone
 from urllib.request import urlopen
 
+import logging
+
 
 
 
@@ -77,4 +79,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception:
+        logging.exception("Weather pipeline failed")
+        raise SystemExit(1)
